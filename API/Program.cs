@@ -16,8 +16,8 @@ builder.Services.AddDbContext<MGFContext>(options =>
 );
 
 //Deactivate Session, Session will be called in MVC 
-//builder.Services.AddDistributedMemoryCache(); 
-//builder.Services.AddSession();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
 
 builder.Services.AddCors(opt => opt.AddPolicy("EnableCors", opt =>
 {
@@ -69,7 +69,7 @@ app.UseHttpsRedirection();
 app.UseRouting();
 
 //Deactivate Session, Session will be called in MVC 
-//app.UseSession();
+app.UseSession();
 
 //app.Use(async (context, next) =>
 //{

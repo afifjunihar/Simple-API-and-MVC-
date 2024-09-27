@@ -28,7 +28,7 @@ namespace API.Controllers
 
         [Route("register-bpkb")]
         [HttpPost]
-        public async Task<IActionResult> RegisterBPKB(TrBpkbVM bpkb)
+        public async Task<IActionResult> RegisterBPKB(TrBpkb bpkb)
         {
             TrBpkb? data = await mGFContext.TrBpkbs.Where(obj => obj.AgreementNumber == bpkb.AgreementNumber ).FirstOrDefaultAsync();
             if (data != null)
@@ -47,12 +47,13 @@ namespace API.Controllers
             newData.PoliceNo = bpkb.PoliceNo;
             newData.CreatedBy = bpkb.CreatedBy;
             newData.CreatedOn = DateTime.Now;
-            MsStorageLocation? location = await mGFContext.MsStorageLocations.Where(obj => obj.LocationId == newData.LocationId).FirstOrDefaultAsync();
-            newData.Location = location??new MsStorageLocation();
+            newData.LastUpdatedBy = bpkb.LastUpdatedBy;
+            newData.LastUpdatedOn = DateTime.Now;
+            newData.LocationId = bpkb.LocationId;
 
 
-            await mGFContext.TrBpkbs.AddAsync(newData);
-            await mGFContext.SaveChangesAsync();
+             mGFContext.TrBpkbs.Add(newData);
+             mGFContext.SaveChanges();
             
             return Ok(new { Message = "Data berhasil terdaftar." });
         }
@@ -62,6 +63,14 @@ namespace API.Controllers
         public async Task<IActionResult> GetBPKB()
         {
             List<TrBpkb>? data = await mGFContext.TrBpkbs.ToListAsync();
+            return Ok(data);
+        }
+
+        [Route("get-all-storage-location")]
+        [HttpGet]
+        public async Task<IActionResult> GetAllStorage()
+        {
+            List<MsStorageLocation>? data = await mGFContext.MsStorageLocations.ToListAsync();
             return Ok(data);
         }
 

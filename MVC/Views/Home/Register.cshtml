@@ -1,0 +1,64 @@
+﻿@{
+	ViewData["Title"] = "Register Page";
+}
+
+<div class="text-center">
+	<h1 class="display-4">Welcome</h1>
+</div>
+
+<div class="container">
+
+	<div class="card m-2">
+		<form id="loginForm" class="m-2">
+			<div class="mb-3">
+				<label for="email" class="form-label">Email or Username</label>
+				<input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+				<div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+			</div>
+			<label for="inputPassword" class="form-label">Password</label>
+			<input type="password" id="inputPassword" class="form-control">
+			<a class="text-dark" asp-controller="Home" asp-action="Index">Login?</a>
+
+			<div class="text-center m-2">
+				<button type="button" id="regisBtn" class="btn btn-primary">Register</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+@section Scripts {
+	<script>
+
+		$(document).ready(function () {
+
+			$("#regisBtn").click(function () {
+				console.log("masuk");
+				var obj = {};
+				obj.EmailOrUsername = $('#email').val();
+				obj.Password = $('#inputPassword').val();
+
+				$.ajax({
+					url: "/Registration",
+					type: "POST",
+					data: obj,
+					dataType: 'json',
+					success: function (response, stat, xhr) {
+						console.log(stat)
+						console.log(xhr)
+						console.log(response)
+						if (response.status == "BadRequest") {
+							alert("Username sudah terdaftar.")
+						}
+
+					},
+					error: function (a, b, c) {
+						console.log(a)
+						console.log(b)
+						console.log(c)
+					}
+				})
+			});
+
+		});
+	</script>
+}
