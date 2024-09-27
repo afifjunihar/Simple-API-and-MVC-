@@ -51,7 +51,7 @@ namespace API.Controllers
                 var idToken = new JwtSecurityTokenHandler().WriteToken(token);
                 claims.Add(new Claim("TokenSecurity", idToken.ToString()));
 
-                HttpContext.Session.SetString("JWToken", idToken);
+                //HttpContext.Session.SetString("JWToken", idToken);
 
                 return Ok(new { Message = "Login Sukses", Token = idToken });
             }

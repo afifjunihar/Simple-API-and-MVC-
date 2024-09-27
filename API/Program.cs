@@ -15,8 +15,9 @@ builder.Services.AddDbContext<MGFContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("APIContext"))
 );
 
-builder.Services.AddDistributedMemoryCache(); 
-builder.Services.AddSession();
+//Deactivate Session, Session will be called in MVC 
+//builder.Services.AddDistributedMemoryCache(); 
+//builder.Services.AddSession();
 
 builder.Services.AddCors(opt => opt.AddPolicy("EnableCors", opt =>
 {
@@ -67,17 +68,18 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
-app.UseSession();
+//Deactivate Session, Session will be called in MVC 
+//app.UseSession();
 
-app.Use(async (context, next) =>
-{
-    var JWToken = context.Session.GetString("JWToken");
-    if (!string.IsNullOrEmpty(JWToken))
-    {
-        context.Request.Headers.Add("Authorization", "Bearer " + JWToken);
-    }
-    await next();
-});
+//app.Use(async (context, next) =>
+//{
+//    var JWToken = context.Session.GetString("JWToken");
+//    if (!string.IsNullOrEmpty(JWToken))
+//    {
+//        context.Request.Headers.Add("Authorization", "Bearer " + JWToken);
+//    }
+//    await next();
+//});
 
 app.UseAuthentication();
 
