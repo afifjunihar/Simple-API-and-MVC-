@@ -75,7 +75,7 @@ app.UseSession();
 //{
 //    var JWToken = context.Session.GetString("JWToken");
 //    if (!string.IsNullOrEmpty(JWToken))
-//    {
+////    {
 //        context.Request.Headers.Add("Authorization", "Bearer " + JWToken);
 //    }
 //    await next();
