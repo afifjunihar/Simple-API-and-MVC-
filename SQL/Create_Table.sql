@@ -58,16 +58,16 @@ GO
 INSERT [dbo].[ms_storage_location] ([location_id], [location_name]) VALUES (N'1', N'Jakarta')
 INSERT [dbo].[ms_storage_location] ([location_id], [location_name]) VALUES (N'2', N'Bandung')
 
+--for example or u can used the registration feature
 SET IDENTITY_INSERT [dbo].[ms_user] ON 
 GO
 INSERT [dbo].[ms_user] ([user_id], [user_name], [password], [is_active]) VALUES (1, N'afifjunihar', N'admin123', 1)
 INSERT [dbo].[ms_user] ([user_id], [user_name], [password], [is_active]) VALUES (2, N'afif', N'admin', 1)
-
 SET IDENTITY_INSERT [dbo].[ms_user] OFF
 GO
-INSERT [dbo].[tr_bpkb] ([agreement_number], [bpkb_no], [branch_id], [bpkb_date], [faktur_no], [faktur_date], [location_id], [police_no], [bpkb_date_in], [created_by], [created_on], [last_updated_by], [last_updated_on]) VALUES (N'47', N'524', N'12', CAST(N'2007-03-25T00:00:00.000' AS DateTime), N'212', CAST(N'1978-04-02T00:00:00.000' AS DateTime), N'1', N'254', CAST(N'1976-11-17T00:00:00.000' AS DateTime), N'afifjunihar', CAST(N'2024-09-28T02:11:27.330' AS DateTime), N'afifjunihar', CAST(N'2024-09-28T02:11:27.330' AS DateTime))
 
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK__tr_bpkb__locatio__3B75D760]') AND parent_object_id = OBJECT_ID(N'[dbo].[tr_bpkb]'))
 ALTER TABLE [dbo].[tr_bpkb]  WITH CHECK ADD FOREIGN KEY([location_id])
 REFERENCES [dbo].[ms_storage_location] ([location_id])
 GO
+
